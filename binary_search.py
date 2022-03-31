@@ -1,37 +1,43 @@
-def binarySearch(arr, l, r, x):
- 
-    # Check base case
+'''
+Titulo: Busqueda binaria recursiva
+Nombre: Daniel Espinoza Bautista
+Descripcion: Este programa realiza la busqueda binaria recursiva a partir de una posicion media 
+'''
+
+def busquedaBinaria(arr, l, r, x):
+    
+    # Obtenemos el caso base
     if r >= l:
  
+        # Calculamos la mitad del arreglo
         mid = l + (r - l) // 2
  
-        # If element is present at the middle itself
+        # Si el elemento esa en la posicion media, regresamos esta posicion
         if arr[mid] == x:
             return mid
  
-        # If element is smaller than mid, then it
-        # can only be present in left subarray
+        # Si el elemento es menor a la mitad, entonces buscamos solo 
+        # en la parte izquierda del arreglo
         elif arr[mid] > x:
-            return binarySearch(arr, l, mid-1, x)
+            return busquedaBinaria(arr, l, mid-1, x)
  
-        # Else the element can only be present
-        # in right subarray
+        # Si no se cumple la condicion de arriba, entonces buscamos
+        # en la parte derecha del arreglo 
         else:
-            return binarySearch(arr, mid + 1, r, x)
+            return busquedaBinaria(arr, mid + 1, r, x)
  
     else:
-        # Element is not present in the array
+        # Regresamos -1 si el elemento no se encontro en el arreglo
         return -1
  
- 
-# Driver Code
 arr = [2, 3, 4, 10, 40]
 x = 10
  
-# Function call
-result = binarySearch(arr, 0, len(arr)-1, x)
+# Llamamos a la funcion
+posicion = busquedaBinaria(arr, 0, len(arr)-1, x)
  
-if result != -1:
-    print("Element is present at index % d" % result)
+# Realizamos la evaluacion de la posicion
+if posicion != -1:
+    print("Elemento presente en el indice % d" % posicion)
 else:
-    print("Element is not present in array")
+    print("No se encontro el elemento en el array")

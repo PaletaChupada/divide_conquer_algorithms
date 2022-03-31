@@ -1,43 +1,52 @@
+'''
+Titulo: Busqueda binaria aleatoria recursiva
+Nombre: Daniel Espinoza Bautista
+Descripcion: Este programa realiza la busqueda binaria a partir de una posicion media generada aleatoriamente, con llamadas recursivas
+'''
+
+# Funcion para generar un numero aleatorio a partir de los
+# numeros que nos den como parametros
 import random
-def getRandom(x,y):
+def obtRandom(x,y):
     tmp=(x + random.randint(0,100000) % (y-x+1))
     return tmp
      
-# A recursive randomized binary search function.
-# It returns location of x in
-# given array arr[l..r] is present, otherwise -1
+# Funcion recursiva de busqueda binaria aleatoria
+# Regresa la posicion del valor
+# en un arreglo dado, si no se encuentra regresa un -1
  
-def randomizedBinarySearch(arr,l,r,x) :
+def randomBusquedaBin(arr,l,r,x) :
     if r>=l:
+        # Definimos la posicion media con un numero random entre 0
+        # Y el valor total de numeros en el arreglo
+        mid=obtRandom(l,r)
          
-        # Here we have defined middle as
-        # random index between l and r ie.. [l, r]
-        mid=getRandom(l,r)
-         
-        # If the element is present at the
-        # middle itself
+        # Si el elemento esta en la mitad, regresamos esta posicion
         if arr[mid] == x:
             return mid
              
-        # If element is smaller than mid, then
-        # it can only be present in left subarray
+        # Si el elemento es menor a la mitad, entonces buscamos solo 
+        # en la parte izquierda del arreglo
         if arr[mid]>x:
-            return randomizedBinarySearch(arr, l, mid-1, x)
+            return randomBusquedaBin(arr, l, mid-1, x)
              
-        # Else the element can only be present
-        # in right subarray
-        return randomizedBinarySearch(arr, mid+1,r, x)
+        # Si no se cumple la condicion de arriba, entonces buscamos
+        # en la parte derecha del arreglo 
+        return randomBusquedaBin(arr, mid+1,r, x)
          
-    # We reach here when element is not present
-    # in array
+    # Si el elemento no se encuentra, regresamos -1
     return -1
      
 arr = [2, 3, 4, 10, 40]
 n=len(arr)
 x=10
-result = randomizedBinarySearch(arr, 0, n-1, x)
-if result==-1:
-    print('Element is not present in array')
+
+# Llamamos a la funcion
+posicion = randomBusquedaBin(arr, 0, n-1, x)
+
+# Realizamos la evaluacion de la posicion
+if posicion==-1:
+    print('No se encontro el elemento')
 else:
-    print('Element is present at index ', result)
+    print('Elemento encontrado en el array', posicion)
          
