@@ -4,6 +4,9 @@ Nombre: Daniel Espinoza Bautista
 Descripcion: Este programa realiza la busqueda binaria a partir de una posicion media generada aleatoriamente, con llamadas recursivas
 '''
 
+import numpy as np
+from time import time
+
 # Funcion para generar un numero aleatorio a partir de los
 # numeros que nos den como parametros
 import random
@@ -37,16 +40,47 @@ def randomBusquedaBin(arr,l,r,x) :
     # Si el elemento no se encuentra, regresamos -1
     return -1
      
-arr = [2, 3, 4, 10, 40]
-n=len(arr)
-x=10
+# Solicitamos el valor de la posicion a buscar y le restamos 1
+print("Elemento a buscar: ")
+pos = int(input())
+pos = pos-1
+
+# Inicializamos el arreglo de numeros
+numeros = []
+
+# Leemos los numeros del archivo, y lo agregamos a un arreglo
+arch = np.loadtxt("./numeros.txt", dtype="str", delimiter=" ")
+
+# Inicializamos la variable para el ciclo
+i=0
+
+# Mediante el ciclo convertimos el arreglo a enteros para
+# poder trabajar de una manera mas eficiente con el
+while i<len(arch)-1:
+    aux = int(arch[i])
+    numeros.append(aux)
+    i+=1
+
+# Ordenamos el arreglo
+numeros.sort()
+
+# Inicializamos la variable tiempo_in que nos ayudara a
+# contar el tiempo de ejecucion del programa
+tiempo_in = time()
 
 # Llamamos a la funcion
-posicion = randomBusquedaBin(arr, 0, n-1, x)
+posicion = randomBusquedaBin(numeros, 0, len(numeros)-1, pos)
+
+# Calculamos el tiempo que tardo en encontrarlo
+# y lo imprimimos
+tiempo_fin = time() - tiempo_in
 
 # Realizamos la evaluacion de la posicion
 if posicion==-1:
-    print('No se encontro el elemento')
+    print("No se encontro el elemento")
 else:
-    print('Elemento encontrado en el array', posicion)
+    print("Elemento encontrado en la posicion:", posicion+1)
+
+# Imprimimos el tiempo de ejecucion
+print("\nTiempo de ejecucion: %.10f segundos." % tiempo_fin)
          
